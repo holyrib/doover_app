@@ -34,7 +34,7 @@ const App = () =>{
                               </li>
                               <li className="nav-item">
                                   <a href="/login" className="nav-link" onClick={logOut}>
-                                      LogOut
+                                      Выйти
                                   </a>
                               </li>
                           </div>
