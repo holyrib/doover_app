@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import './App.css';
 import Main from "./components/Main";
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import Login from "./components/Login";
 import AuthService from "./services/auth";
+import Products from "./components/Products";
+
 const App = () =>{
     const [currentUser, setCurrentUser] = useState(undefined);
     useEffect(() => {
@@ -53,12 +55,12 @@ const App = () =>{
                       <Switch>
                           <Route exact path={["/", "/main"]} component={Main} />
                           <Route exact path="/login" component={Login} />
+                          <Route path="/products/" component={Products} />
                           {/*<Route exact path="/profile" component={Profile} />*/}
                       </Switch>
                   </div>
               </div>
           </Router>
-          {/*<Main/>*/}
       </div>
   );
 }

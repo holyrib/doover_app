@@ -6,6 +6,11 @@
     padding: 2px 16px;
 }
 .categoryImg{
-    max-height: 300px;
-    max-width: 300px;
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+
+}
+h2 {
+    text-align: center;
 }

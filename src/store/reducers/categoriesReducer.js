@@ -11,8 +11,6 @@ export default function categoriesReducer(state = initialState, action) {
         case actions.GET_CATEGORIES:
             return {...state, loading: true}
         case actions.GET_CATEGORIES_SUCCESS:
-            console.log('success');
-            console.log(state);
             return {categories: action.payload, loading: false, hasErrors: false}
         case actions.GET_CATEGORIES_FAILURE:
             return {...state, loading: false, hasErrors: true}
