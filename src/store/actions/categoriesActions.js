@@ -23,7 +23,7 @@ export function fetchCategories() {
         try {
             const token = localStorage.getItem('user').slice(1,-1);
             // console.log(localStorage.getItem('user'));
-            const response = products.get('products/categories/', {
+            const response = await products.get('products/categories/', {
                 // mode: 'no-cors',
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -31,7 +31,8 @@ export function fetchCategories() {
                     'Content-Type': 'application/json',
                 },
             }).then((response) => {
-                dispatch(getCategoriesSuccess(response.data))
+                console.log(response.data)
+                dispatch(getCategoriesSuccess(response.data));
             });
         } catch (error) {
             dispatch(getCategoriesFailure())

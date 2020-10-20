@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {Category} from "./Category";
 
 const Main = ({dispatch, loading, categories, hasErrors}) => {
-
     // useEffect(() => {
     //     const token = localStorage.getItem('user').slice(1,-1);
     //     console.log(localStorage.getItem('user'));
@@ -24,14 +23,16 @@ const Main = ({dispatch, loading, categories, hasErrors}) => {
     }, [dispatch])
 
     const renderCategories = () => {
+        console.log(categories);
         if (loading) return <p>Категории загружаются...</p>
         if (hasErrors) return <p>Произошла ошибка, перезагрузите страницу :(</p>
-        return categories.map((category) => <Category key={category.id}  category={category}/>)
+        if (typeof categories === 'undefined') return <p>упс</p>;
+        return categories.map(category => <Category key={category.id}  category={category}/>)
     }
-
     return (
         <section>
             <h1>Категории</h1>
+
             {renderCategories()}
         </section>
     );
@@ -39,9 +40,9 @@ const Main = ({dispatch, loading, categories, hasErrors}) => {
 }
 
 const mapStateToProps = (state) => ({
-    loading: state.posts.loading,
-    posts: state.posts.posts,
-    hasErrors: state.posts.hasErrors,
+    loading: state.categories.loading,
+    categories: state.categories.categories,
+    hasErrors: state.categories.hasErrors,
 })
 
 export default connect(mapStateToProps)(Main);
