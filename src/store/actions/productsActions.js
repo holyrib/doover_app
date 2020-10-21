@@ -25,9 +25,7 @@ export function fetchProducts(categoryId) {
                     'Content-Type': 'application/json',
                 },
             }).then((response) => {
-                console.log(response);
                 dispatch(getProductsSuccess(response.data));
-                console.log('success');
             });
         } catch (error) {
             dispatch(getProductsFailure())
