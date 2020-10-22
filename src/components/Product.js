@@ -43,11 +43,12 @@ const Product = ({product}) => {
         // setProducts(updatedProducts => [...updatedProducts, newProduct]);
         localStorage.setItem('products', JSON.stringify(updatedProducts));
         setCount(count + 1);
-
     }
 
     function removeProductFromCart(removeProduct){
+        getProductsInCart();
         const index = products.map(function(x) {return x.uuid; }).indexOf(removeProduct.uuid);
+        if (index == 0 || index < 0) return;
         // const objectFound = array[index];
         if (index > -1) {
             products.splice(index, 1);
