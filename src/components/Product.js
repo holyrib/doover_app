@@ -7,35 +7,43 @@ import './Product.css'
 const Product = ({product}) => {
     const durationDays = product.duration/86400;
     const [products, setProducts] = useState([]);
-    const [itemCount, setItemCount] = useState(0);
-    const [changeCart, setChangeCart] = useState(true);
+    // const [itemCount, setItemCount] = useState(0);
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        products.map(function (countProduct){
+            if (product.uuid === countProduct.uuid) {
+                setCount(count+1);
+            }
+        });
+    }, []);
+    useEffect(() => {
+        let productsString = localStorage.getItem('products');
+        if (productsString) {
+            setProducts(JSON.parse(productsString));
+        }
+    }, [count]);
+
+
 
     function getProductsInCart(){
         let productsString = localStorage.getItem('products');
         if (productsString) {
             setProducts(JSON.parse(productsString));
         }
-        countItemsInCartCount();
     };
-    function countItemsInCartCount() {
-        if(product === null) return;
-        let count = 0;
-        products.map(function (countProduct){
-            if (product.uuid === countProduct.uuid) {
-                count++;
-            }
-        })
-        console.log(count);
-        if(count < 0) setItemCount(0);
-        setItemCount(count);
-    }
+    // function countItemsInCartCount() {
+    //     if(product === null) return;
+    //     console.log(count);
+    // }
 
     function addProductToCart(newProduct) {
-        products.push(newProduct);
-        localStorage.setItem('products', JSON.stringify(products));
         getProductsInCart();
-        setChangeCart(!changeCart);
-        console.log('hi')
+        const updatedProducts = products;
+        updatedProducts.push(newProduct);
+        // setProducts(updatedProducts => [...updatedProducts, newProduct]);
+        localStorage.setItem('products', JSON.stringify(updatedProducts));
+        setCount(count + 1);
+
     }
 
     function removeProductFromCart(removeProduct){
@@ -43,12 +51,10 @@ const Product = ({product}) => {
         // const objectFound = array[index];
         if (index > -1) {
             products.splice(index, 1);
-            console.log('success');
+            // console.log('success');
         }
         localStorage.setItem('products', JSON.stringify(products));
-        getProductsInCart()
-        setChangeCart(!changeCart);
-
+        setCount(count - 1);
     }
 
     return (
@@ -58,9 +64,9 @@ const Product = ({product}) => {
                 <h4>{product.name}</h4>
                 <p>Срок доставки: {durationDays} {durationDays < 2 ? 'день' : 'дня'}</p>
                 <p>{product.price} тенге</p>
-                <button onClick={ () => {addProductToCart(product)} }>+</button>
-                { itemCount }
-                <button onClick={ ()=> {removeProductFromCart(product)} }>-</button>
+                <button onClick={ () => addProductToCart(product) }>+</button>
+                { count }
+                <button onClick={ ()=> removeProductFromCart(product) }>-</button>
             </div>
 
         </div>

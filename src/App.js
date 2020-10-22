@@ -5,6 +5,7 @@ import Main from "./components/Main";
 import Login from "./components/Login";
 import AuthService from "./services/auth";
 import Products from "./components/Products";
+import Cart from "./components/Cart";
 
 const App = () =>{
     const [currentUser, setCurrentUser] = useState(undefined);
@@ -26,7 +27,7 @@ const App = () =>{
               <div>
                   <ul>
                       <li><Link to={"/"} className="active" href="#home">Главная</Link></li>
-                      <li><Link to={"/"} href="#news">Корзина</Link></li>
+                      <li><Link to={"/cart"} href="#news">Корзина</Link></li>
                       {currentUser ? (
                           <div>
                               <li className="nav-item">
@@ -56,6 +57,7 @@ const App = () =>{
                           <Route exact path={["/", "/main"]} component={Main} />
                           <Route exact path="/login" component={Login} />
                           <Route path="/products/" component={Products} />
+                          <Route path="/cart" component={Cart} />
                           {/*<Route exact path="/profile" component={Profile} />*/}
                       </Switch>
                   </div>
